@@ -27,8 +27,6 @@ Clean Architecture를 도입하여, 프로젝트를 data / domain / presentation
 
 Hive 라이브러리를 사용하여 로컬DB를 구현하고, NoSQL 방식으로 데이터를 저장하고 추후 다시 들어오더라도 데이터를 유지할 수 있도록 하였습니다.
 
-현재는 StatelessWidget으로 모두 구현하여 `update()`가 발생할 때마다 모든 뷰가 다시 그려지도록 하였습니다. 추후에는 GetX의 `Obx`를 사용하여 필요한 부분만 다시 그려지도록 수정할 예정입니다.
-
 ## 프로젝트 구조
 ```
 lib
@@ -58,6 +56,3 @@ lib
  ┃ ┗ routes.dart
  ┗ main.dart
 ```
-
-## TODO
-- [ ] 테스트 코드 작성
