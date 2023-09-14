@@ -28,6 +28,7 @@ class TodoController extends GetxController {
   void addTodo(TodoEntity todo) {
     todos.add(todo);
     saveTodos(todos);
+    textEditingController.clear();
     update();
   }
 
@@ -42,6 +43,7 @@ class TodoController extends GetxController {
     final index = todos.indexWhere((element) => element.id == todo.id);
     todos[index] = todo;
     saveTodos(todos);
+    textEditingController.clear();
     update();
   }
 }

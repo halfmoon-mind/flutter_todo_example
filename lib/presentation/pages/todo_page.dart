@@ -33,6 +33,7 @@ class TodoPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     onPressed: () {
+                      controller.textEditingController.clear();
                       Get.to(() => const EditTodoPage());
                     },
                     icon: const Icon(Icons.add),

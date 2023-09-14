@@ -6,10 +6,6 @@ import 'package:get/get.dart';
 class EditTodoPage extends StatelessWidget {
   const EditTodoPage({super.key});
 
-  void dispose() {
-    Get.find<TodoController>().textEditingController.text = '';
-  }
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<TodoController>();
