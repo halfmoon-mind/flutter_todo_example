@@ -5,27 +5,27 @@ import 'package:flutter_todo_example/routes/routes.dart';
 import 'package:get/get.dart';
 
 class TodoWidget extends StatelessWidget {
-  final TodoEntity todo;
+  final Rx<TodoEntity> todo;
   final TodoController controller = Get.find<TodoController>();
 
   TodoWidget({required this.todo, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: IconButton(
-        onPressed: () => controller.toggleIsCompleted(todo),
-        icon: todo.isCompleted
-            ? const Icon(Icons.check_box)
-            : const Icon(Icons.check_box_outline_blank),
-      ),
-      title: Text(todo.title),
-      trailing: IconButton(
-        onPressed: () {
-          controller.textEditingController.text = todo.title;
-          Get.toNamed(AppRoutes.editTodoPage, arguments: todo);
-        },
-        icon: const Icon(Icons.edit),
+    return Obx(
+      () => ListTile(
+        leading: Checkbox(
+          value: todo.value.isCompleted,
+          onChanged: (value) => controller.toggleIsCompleted(todo.value),
+        ),
+        title: Text(todo.value.title),
+        trailing: IconButton(
+          onPressed: () {
+            controller.textEditingController.text = todo.value.title;
+            Get.toNamed(AppRoutes.editTodoPage, arguments: todo.value);
+          },
+          icon: const Icon(Icons.edit),
+        ),
       ),
     );
   }

@@ -32,11 +32,12 @@ class TodoController extends GetxController {
     update();
   }
 
-  void toggleIsCompleted(TodoEntity todo) {
+  Rx<TodoEntity> toggleIsCompleted(TodoEntity todo) {
     final index = todos.indexWhere((element) => element.id == todo.id);
     todos[index] = todo.copyWith(isCompleted: !todo.isCompleted);
     saveTodos(todos);
     update();
+    return todos[index].obs;
   }
 
   void editTodo(TodoEntity todo) {

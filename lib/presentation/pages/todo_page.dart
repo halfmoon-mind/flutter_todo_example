@@ -15,10 +15,6 @@ class TodoPage extends StatelessWidget {
     return GetBuilder<TodoController>(
         init: TodoController(Get.find<GetTodos>(), Get.find<SaveTodos>()),
         builder: (controller) {
-          final inProgressTodos =
-              controller.todos.where((t) => !t.isCompleted).toList();
-          final completedTodos =
-              controller.todos.where((t) => t.isCompleted).toList();
           return DefaultTabController(
             length: 2,
             child: Scaffold(
@@ -41,8 +37,16 @@ class TodoPage extends StatelessWidget {
                 ],
               ),
               body: TabBarView(children: [
-                _buildTodoList(inProgressTodos),
-                _buildTodoList(completedTodos),
+                Obx(() {
+                  final inProgressTodos =
+                      controller.todos.where((t) => !t.isCompleted).toList();
+                  return _buildTodoList(inProgressTodos);
+                }),
+                Obx(() {
+                  final completedTodos =
+                      controller.todos.where((t) => t.isCompleted).toList();
+                  return _buildTodoList(completedTodos);
+                })
               ]),
             ),
           );
@@ -53,8 +57,8 @@ class TodoPage extends StatelessWidget {
     return ListView.builder(
       itemCount: todos.length,
       itemBuilder: (context, index) {
-        final todo = todos[index];
-        return TodoWidget(todo: todo, key: Key(todo.id));
+        final todo = todos[index].obs;
+        return TodoWidget(todo: todo, key: Key(todo.value.id));
       },
     );
   }
